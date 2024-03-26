@@ -11,28 +11,26 @@ describe('Dependent tests bad practice', () => {
     cy.contains('h1', 'Your Notes').should('be.visible')
   })
 
-  it('creates a note', () => {
+
+  it('CRUDs a note', () => {
     cy.contains('Create a new note').click()
 
     cy.get('#content').type('My note')
     cy.contains('Create').click()
 
-    cy.get('.list-group').should('contain', 'My note')
-  })
+    cy.get('.list-group').should('contain', 'My note').click()
 
-  it('edits a note', () => {
-    cy.get('.list-group').contains('My note').click()
     cy.get('#content').type(' updated')
     cy.contains('Save').click()
 
     cy.get('.list-group').should('contain', 'My note updated')
     cy.get('.list-group:contains(My note updated)').should('be.visible')
-  })
 
-  it('deletes a note', () => {
+
     cy.get('.list-group').contains('My note updated').click()
     cy.contains('Delete').click()
 
     cy.get('.list-group:contains(My note updated)').should('not.exist')
+
   })
 })
